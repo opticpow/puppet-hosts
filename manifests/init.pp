@@ -13,11 +13,14 @@
 class hosts {
   host {
     'localhost.localdomin':
-      ip => '127.0.0.1',
-      alias => 'localhost';
-      
-    "${::fqdn}": 
-      ip => "${::ipaddress}",
-      alias => "${::hostname}"; 
+        ensure       => present,
+        ip           => '127.0.0.1',
+        host_aliases => 'localhost';
+
+    "${::hostname}.vagrantup.com":
+        ensure       => present,
+        ip           => "${::ipaddress}",
+        host_aliases => ["$hostname",'puppet'];
+
   }
 }
